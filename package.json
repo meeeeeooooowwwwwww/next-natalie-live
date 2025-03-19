@@ -10,6 +10,7 @@
     "clean": "rimraf .next && npm run dev"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.6.3",
     "@heroicons/react": "^2.1.1",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.5",

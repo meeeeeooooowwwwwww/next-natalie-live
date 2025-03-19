@@ -22,8 +22,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
         
-      - name: Build
-        run: npm run build
+      - name: Build with Next.js Cloudflare Adapter
+        run: npx @cloudflare/next-on-pages@1
         
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -31,5 +31,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: .next
+          directory: .vercel/output/static
           gitHubToken: ${{ secrets.GITHUB_TOKEN }} 
