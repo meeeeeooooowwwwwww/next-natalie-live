@@ -1,0 +1,121 @@
+# Rumble Video Embedding Issue Analysis
+
+## Issue Overview
+We're experiencing an issue where Rumble videos won't display properly when embedded in our Next.js application, despite the same embed code working perfectly in a standalone HTML test page.
+
+## Current Setup
+
+### What Works
+- **Test HTML page** (http://127.0.0.1:5500/rumble-test.html): Videos load and display correctly with this simple HTML code:
+  ```html
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>Rumble Embed Test</title>
+  </head>
+  <body>
+      <h1>Rumble Embed Test</h1>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+          <iframe 
+              src="https://rumble.com/embed/v6oa3ic/?pub=4kxtac" 
+              style="position: absolute; width: 100%; height: 100%;" 
+              frameborder="0" 
+              allowfullscreen
+          ></iframe>
+      </div>
+  </body>
+  </html>
+  ```
+
+### What Doesn't Work
+- **Next.js Application** (http://localhost:3002/videos/v6qi07w): The same embed code structure fails to display videos when implemented in our Next.js application.
+
+### Embed URL Format
+We're using the correct Rumble embed URL format:
+```
+https://rumble.com/embed/v6qi07w/?pub=4kxtac
+```
+
+The format is consistent with successful embeds seen on other sites and in our test HTML.
+
+## Attempted Solutions
+
+1. **Multiple Embedding Approaches**:
+   - Direct iframe with proper ref
+   - Dynamic script insertion via DOM
+   - Next.js Script component with "afterInteractive" strategy
+
+2. **Content Security Policy Updates**:
+   - Updated CSP in next.config.js to be more permissive for Rumble:
+   ```javascript
+   value: `
+     default-src 'self';
+     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://rumble.com;
+     style-src 'self' 'unsafe-inline';
+     img-src 'self' https://1a-1791.com https://rumble.com data:;
+     font-src 'self';
+     object-src 'none';
+     base-uri 'self';
+     form-action 'self';
+     frame-ancestors 'self';
+     frame-src 'self' https://rumble.com;
+     connect-src 'self' https://rumble.com;
+     media-src 'self' https://rumble.com;
+   `
+   ```
+
+3. **Different Implementation Methods**:
+   - React useRef approach
+   - dangerouslySetInnerHTML
+   - Direct DOM manipulation
+   - Next.js Script component
+
+## Analysis of Potential Issues
+
+1. **Cross-Origin Restrictions**:
+   - The fact that the embed works on a test HTML page (127.0.0.1:5500) but not in Next.js (localhost:3002) suggests there may be domain-specific issues.
+   - Rumble might be restricting embeds based on specific origins or protocols.
+
+2. **Content Security Policy**:
+   - Despite our CSP updates, Next.js may be applying additional security policies.
+   - There could be conflicts between our CSP and Next.js's internal handling.
+
+3. **Client-Side Rendering**:
+   - Next.js's hydration process might be interfering with the way Rumble's embed script initializes.
+   - The Next.js component lifecycle might not align with when Rumble expects to initialize its player.
+
+4. **Server-Side Rendering**:
+   - Next.js's SSR might be causing issues with the dynamic content from Rumble.
+   - The iframe might load before the component is fully rendered in the client.
+
+5. **Network/CORS Issues**:
+   - The requests might be blocked by CORS policies when coming from the Next.js application.
+   - Browser security settings may be treating the requests differently.
+
+## Request for Further Suggestions
+
+1. Has anyone successfully embedded Rumble videos in a Next.js application? If so, what approach worked?
+
+2. Are there specific Next.js settings beyond CSP that might be blocking the embed?
+
+3. Would transitioning to a static HTML approach within Next.js (using getStaticProps/getServerSideProps) potentially resolve the issue?
+
+4. Are there alternative embedding methods provided by Rumble that might work better with Next.js?
+
+5. Could the issue be related to how Next.js handles iframes in general rather than specifically Rumble embeds?
+
+6. Should we consider a different approach, such as using an API to get the video content directly?
+
+## Next Steps
+
+1. Check browser console for specific errors related to the embed.
+
+2. Try a completely static approach (static HTML export from Next.js).
+
+3. Contact Rumble support to inquire about known issues with Next.js or React applications.
+
+4. Test with other video embedding platforms to see if the issue is specific to Rumble or a more general embedding problem.
+
+5. Consider implementing a server-side proxy for the embed content if cross-origin issues are confirmed.
+
+Any feedback or suggestions would be greatly appreciated as we continue to troubleshoot this issue. 

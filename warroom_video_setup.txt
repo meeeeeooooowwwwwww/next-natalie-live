@@ -1,0 +1,405 @@
+# WAR ROOM VIDEO SYSTEM DOCUMENTATION
+
+## Overview
+This document outlines the complete setup for the War Room video functionality, including all files used, API routes, data structures, embedding mechanisms, and known issues.
+
+## File Structure
+```
+src/
+├── app/
+│   ├── (pages)/
+│   │   ├── videos/
+│   │   │   ├── page.tsx              # Videos listing page
+│   │   │   │   ├── page.tsx          # Individual video page
+│   │   │   │   └── not-found.tsx     # 404 page for video not found
+│   ├── api/
+│   │   ├── videos/
+│   │   │   ├── route.ts              # Main API endpoint for videos
+│   │   │   ├── feed/
+│   │   │   │   └── route.ts          # Feed API for getting all videos
+├── utils/
+│   ├── videos.ts                     # Utility functions for video handling
+├── data/
+│   ├── videos/
+│   │   └── videos.json               # JSON data file with video information
+```
+
+## Data Structure
+The video data is stored in a JSON file with the following structure:
+
+```json
+[
+    {
+        "title": "WarRoom Battleground EP 722: Whistle Blower Exclusive; DC Catholic Church Exposed",
+        "link": "https://rumble.com/v6qi45w-warroom-battleground-ep-722-whistle-blower-exclusive-dc-catholic-church-exp.html?e9s=src_v1_ucp",
+        "thumbnail": "https://1a-1791.com/video/fwe1/a5/s8/1/u/E/X/r/uEXry.oq1b.2-small-WarRoom-Battleground-EP-722.jpg",
+        "uploader": "https://warroom.org"
+    },
+    ...
+]
+```
+
+## Key Files and Code
+
+### 1. Video Utility Functions (src/utils/videos.ts)
+```typescript
+export interface WarroomVideo {
+  title: string;
+  link: string;
+  thumbnail: string;
+  uploader: string;
+}
+
+export interface VideosFeed {
+  [index: number]: WarroomVideo;
+}
+
+export async function getVideosFeed(): Promise<WarroomVideo[]> {
+  const response = await fetch('http://localhost:3002/api/videos/feed');
+  if (!response.ok) {
+    throw new Error('Failed to fetch videos feed');
+  }
+  return response.json();
+}
+
+export async function getVideoById(id: string): Promise<WarroomVideo | null> {
+  const videos = await getVideosFeed();
+  // Find video with matching ID
+  const video = videos.find((video) => {
+    const videoId = getVideoSlug(video.link);
+    return videoId === id;
+  });
+  return video || null;
+}
+
+export async function getLatestVideos(count: number = 10): Promise<WarroomVideo[]> {
+  const videos = await getVideosFeed();
+  return videos.slice(0, count);
+}
+
+export function getVideoSlug(url: string): string {
+  if (!url) return '';
+  
+  // Extract the video ID from the Rumble URL
+  // Examples:
+  // https://rumble.com/v6qi45w-warroom-battleground-ep-722-whistle-blower-exclusive-dc-catholic-church-exp.html
+  // https://rumble.com/embed/v6oa7gc/?pub=4kxtac
+  
+  try {
+    // Look for ID in embed URL format (e.g., /embed/v6oa7gc)
+    const embedMatch = url.match(/\/embed\/([a-zA-Z0-9]+)/i);
+    if (embedMatch && embedMatch[1]) {
+      console.log(`Found embed ID: ${embedMatch[1]}`);
+      return embedMatch[1];
+    }
+    
+    // Look for ID in standard URL format (e.g., rumble.com/v6qi45w)
+    const standardMatch = url.match(/rumble\.com\/([a-zA-Z0-9]+)/i);
+    if (standardMatch && standardMatch[1]) {
+      console.log(`Found standard ID: ${standardMatch[1]}`);
+      return standardMatch[1];
+    }
+    
+    console.log(`No ID found in URL: ${url}`);
+    return '';
+  } catch (error) {
+    console.error('Error extracting video ID:', error);
+    return '';
+  }
+}
+
+export function getVideoEmbedUrl(url: string): string {
+  if (!url) return '';
+  
+  // Get the video ID
+  const videoId = getVideoSlug(url);
+  if (!videoId) return '';
+  
+  // Return the standard embed format using Rumble's exact format
+  return `https://rumble.com/embed/${videoId}/?pub=4kxtac`;
+}
+```
+
+### 2. API Feed Route (src/app/api/videos/feed/route.ts)
+```typescript
+import { NextResponse } from 'next/server';
+import path from 'path';
+import { promises as fs } from 'fs';
+
+export async function GET() {
+  try {
+    const filePath = path.join(process.cwd(), 'src', 'data', 'videos', 'videos.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const videos = JSON.parse(fileContents);
+    
+    return NextResponse.json(videos);
+  } catch (error) {
+    console.error('Error fetching videos feed:', error);
+    return NextResponse.json({ error: 'Failed to fetch videos feed' }, { status: 500 });
+  }
+}
+```
+
+### 3. Videos API Route (src/app/api/videos/route.ts)
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const limit = Number(searchParams.get('limit') || '12');
+  
+  try {
+    const feedResponse = await fetch(new URL('/api/videos/feed', request.url));
+    
+    if (!feedResponse.ok) {
+      throw new Error('Failed to fetch videos feed');
+    }
+    
+    const allVideos = await feedResponse.json();
+    const videos = allVideos.slice(0, limit);
+    
+    return NextResponse.json(videos);
+  } catch (error) {
+    console.error('Error fetching videos:', error);
+    return NextResponse.json({ error: 'Failed to fetch videos' }, { status: 500 });
+  }
+}
+```
+
+### 4. Videos Listing Page (src/app/(pages)/videos/page.tsx)
+This page displays a grid of video thumbnails with titles. It includes:
+- State for videos, pagination, loading, and errors
+- Fetch function to get videos from the API
+- Grid layout with responsive design
+- Image thumbnails with Next.js Image component
+- Links to individual video pages
+
+### 5. Video Detail Page (src/app/(pages)/videos/[id]/page.tsx)
+```typescript
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { FaArrowLeft, FaTwitter, FaFacebook, FaEnvelope } from 'react-icons/fa';
+import { getVideoSlug, getVideoEmbedUrl } from '@/utils/videos';
+
+type Props = {
+  params: { id: string }
+}
+
+export default function VideoPage({ params }: Props) {
+  const id = params.id;
+  const [video, setVideo] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Create embed URL directly from the ID parameter - using exact Rumble format
+  const embedUrl = `https://rumble.com/embed/${id}/?pub=4kxtac`;
+
+  useEffect(() => {
+    const fetchVideo = async () => {
+      setLoading(true);
+      try {
+        console.log(`Creating embed URL for ID: ${id}`);
+        console.log(`Embed URL: ${embedUrl}`);
+        
+        // Explicitly use port 3002 to match the server
+        const res = await fetch(`http://localhost:3002/api/videos/feed`);
+        if (!res.ok) throw new Error('Failed to fetch videos');
+        
+        const videos = await res.json();
+        
+        // Find video metadata if available (but we'll show the embed regardless)
+        const foundVideo = videos.find((v: any) => {
+          const slug = getVideoSlug(v.link);
+          return slug === id;
+        });
+        
+        if (foundVideo) {
+          console.log(`Found video metadata: ${foundVideo.title}`);
+          setVideo(foundVideo);
+        } else {
+          console.log('No matching metadata found, but embed will still work');
+        }
+      } catch (err: any) {
+        console.error('Error loading video metadata:', err);
+        // Don't set error - we can still try to show the embed
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideo();
+  }, [id, embedUrl]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-12">
+      <Link href="/videos" className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-8">
+        <FaArrowLeft className="mr-2" />
+        <span>Back to Videos</span>
+      </Link>
+      
+      {video ? (
+        <h1 className="text-3xl md:text-4xl font-bold mb-8">{video.title}</h1>
+      ) : (
+        <h1 className="text-3xl md:text-4xl font-bold mb-8">War Room Video</h1>
+      )}
+      
+      {/* Video Player - iframe embed */}
+      <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
+        <div className="relative" style={{ paddingBottom: '56.25%', height: 0 }}>
+          <iframe
+            src={embedUrl}
+            title={video?.title || 'War Room Video'}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute top-0 left-0 w-full h-full"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      </div>
+      
+      {/* Direct link to Rumble */}
+      <div className="text-center mb-8">
+        <a 
+          href={video?.link || `https://rumble.com/${id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+        >
+          Watch on Rumble
+        </a>
+      </div>
+      
+      {/* Video Info - only show if we have video metadata */}
+      {video && (
+        <>
+          {/* Social sharing and metadata display */}
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+### 6. Next.js Configuration (next.config.js)
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['1a-1791.com'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; frame-src 'self' https://rumble.com; img-src 'self' https://1a-1791.com https://rumble.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://rumble.com;"
+          }
+        ]
+      }
+    ]
+  },
+  webpack: (config, { isServer }) => {
+    // Silence the punycode deprecation warning
+    config.ignoreWarnings = [
+      { module: /node_modules\/punycode/ }
+    ];
+    return config;
+  },
+}
+
+module.exports = nextConfig
+```
+
+## Conversion Logic
+
+### From Direct Link to Embed URL
+The system takes a standard Rumble video URL from the JSON data and converts it to an embed URL:
+
+1. Original URL in JSON: `https://rumble.com/v6qi45w-warroom-battleground-ep-722-whistle-blower-exclusive-dc-catholic-church-exp.html`
+
+2. Extract Video ID: Using regex to extract the ID (v6qi45w) from the URL
+
+3. Generate Embed URL: `https://rumble.com/embed/v6qi45w/?pub=4kxtac`
+
+This embed URL is then used in an iframe to display the video on the page.
+
+### URL/Slug Generation for SEO
+For SEO purposes, the system creates a clean URL path for each video:
+- Video page URL: `http://localhost:3002/videos/v6qi45w`
+- The ID portion (v6qi45w) is extracted from the original Rumble URL
+
+## HTML Output
+The video embed is generated as an iframe with the following HTML:
+
+```html
+<iframe 
+  src="https://rumble.com/embed/v6qi45w/?pub=4kxtac"
+  title="WarRoom Battleground EP 722: Whistle Blower Exclusive; DC Catholic Church Exposed"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  class="absolute top-0 left-0 w-full h-full"
+  style="width: 100%; height: 100%;"
+></iframe>
+```
+
+## Known Issues and Diagnosis
+
+### 1. "Video not found" Error
+The primary issue encountered is that when navigating to individual video pages, the iframe shows "Video not found" instead of displaying the video content.
+
+#### Possible Causes:
+- **Content Restrictions:** Based on web search results, some Rumble videos might be "Premium Only Content" that cannot be embedded on external sites.
+- **CORS Issues:** Despite setting proper CSP headers, Rumble might be blocking embedding of videos from certain domains.
+- **ID Extraction Issues:** The regex pattern used to extract video IDs from URLs might not always capture the correct ID format expected by Rumble.
+- **Embed Format Incompatibility:** The embed URL format `https://rumble.com/embed/${id}/?pub=4kxtac` might not be accepted for all videos or might require additional parameters.
+
+### 2. Port Configuration Issues
+There's a port conflict issue when trying to run the development server:
+```
+Error: listen EADDRINUSE: address already in use :::3000
+```
+This indicates the server should be run on an alternate port (3002) as the default port 3000 is already in use.
+
+### 3. Image Domain Configuration
+The system requires configuration for external image domains:
+```javascript
+images: {
+  domains: ['1a-1791.com'],
+}
+```
+This allows Next.js to optimize and serve images from the external domain.
+
+## Recommended Solutions
+
+1. **Direct Link Approach:** Since embedding might be restricted, providing a prominent "Watch on Rumble" button (already implemented) is a good alternative.
+
+2. **Testing with Known Public Videos:** Verify the embed code works with known publicly embeddable Rumble videos.
+
+3. **Alternative Embed Format:** Explore alternative embedding methods provided by Rumble if iframe embedding is not working.
+
+4. **Use Rumble's Official Embed Code:** Consider using the exact embed code provided by Rumble for each video if available.
+
+5. **Port Configuration:** Always use port 3002 for development:
+```
+npm run dev -- -p 3002
+```
+
+## Conclusion
+The War Room video system is properly set up with a complete data pipeline from JSON storage to frontend display. The primary issue appears to be with Rumble's embed restrictions rather than with the codebase itself. The system handles video metadata correctly and provides good fallbacks for when embedding is not possible. 
