@@ -13,6 +13,17 @@ export interface VideosFeed {
   [index: number]: WarroomVideo;
 }
 
+let cachedVideos: WarroomVideo[] | null = null;
+
+export async function loadVideos() {
+  if (!cachedVideos) {
+    const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
+    const data = await fs.readFile(filePath, 'utf-8');
+    cachedVideos = JSON.parse(data);
+  }
+  return cachedVideos;
+}
+
 export async function getVideosFeed(): Promise<WarroomVideo[]> {
   const response = await fetch('http://localhost:3002/api/videos/feed');
   if (!response.ok) {
@@ -25,10 +36,9 @@ export async function getVideosFeed(): Promise<WarroomVideo[]> {
  * Get a video by its ID/slug
  */
 export async function getVideoById(id: string) {
-  const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
-  const data = await fs.readFile(filePath, 'utf-8');
-  const videos: WarroomVideo[] = JSON.parse(data);
-  return videos.find((video) => video.id === id) || null;
+  const videos = await loadVideos();
+  if (!videos) return null;
+  return videos.find((video) => video.id === id);
 }
 
 export async function getLatestVideos(count: number = 10): Promise<WarroomVideo[]> {
@@ -73,3 +83,9 @@ export function getVideoSlug(url: string): string {
 // export function getVideoEmbedUrl(url: string): string {
 //   // Implementation here
 // } 
+
+export async function generateStaticParams() {
+  const videos = await loadVideos();
+  if (!videos) return [];
+  return videos.slice(0, 50).map((video) => ({ id: video.id }));
+} 

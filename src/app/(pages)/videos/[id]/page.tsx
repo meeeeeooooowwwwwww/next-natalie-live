@@ -6,6 +6,7 @@ import { getVideoSlug, getVideoById } from '@/utils/videos';
 import { notFound } from 'next/navigation';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { loadVideos } from '@/utils/videos';
 
 type Props = {
   params: { id: string }
@@ -29,22 +30,15 @@ interface Video {
 
 // Generate static paths for all videos
 export async function generateStaticParams() {
-  const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
-  const data = await fs.readFile(filePath, 'utf-8');
-  const videos: Video[] = JSON.parse(data);
-  return videos.slice(0, 50).map((video) => ({
-    id: video.id,
-  }));
+  const videos = await loadVideos();
+  return videos.slice(0, 50).map((video) => ({ id: video.id }));
 }
 
 export default async function VideoPage({ params }: Props) {
   const id = params.id;
-  const embedUrl = `https://rumble.com/embed/${id}/`;
   const video = await getVideoById(id);
-
-  if (!video) {
-    notFound(); // Returns a 404 page for IDs beyond the first 50
-  }
+  if (!video) return <div>Video not found</div>; // Fallback for non-pre-rendered IDs
+  const embedUrl = `https://rumble.com/embed/${id}/`;
 
   return (
     <div className="container mx-auto px-4 py-12">

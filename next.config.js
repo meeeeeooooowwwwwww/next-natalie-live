@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['1a-1791.com'],
   },
+  experimental: {
+    buildTracesIgnore: ['node_modules/**', 'public/data/**'],
+  },
   async headers() {
     return [
       {
