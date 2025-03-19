@@ -1,4 +1,8 @@
+import { promises as fs } from 'fs';
+import path from 'path';
+
 export interface WarroomVideo {
+  id: string;
   title: string;
   link: string;
   thumbnail: string;
@@ -21,16 +25,10 @@ export async function getVideosFeed(): Promise<WarroomVideo[]> {
  * Get a video by its ID/slug
  */
 export async function getVideoById(id: string) {
-  // Get all videos from the feed
-  const videos = await getVideosFeed();
-  
-  // Find the video with matching ID
-  const video = videos.find(video => {
-    const videoId = getVideoSlug(video.link);
-    return videoId === id;
-  });
-  
-  return video || null;
+  const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
+  const data = await fs.readFile(filePath, 'utf-8');
+  const videos: WarroomVideo[] = JSON.parse(data);
+  return videos.find((video) => video.id === id) || null;
 }
 
 export async function getLatestVideos(count: number = 10): Promise<WarroomVideo[]> {
@@ -71,13 +69,7 @@ export function getVideoSlug(url: string): string {
   }
 }
 
-export function getVideoEmbedUrl(url: string): string {
-  if (!url) return '';
-  
-  // Get the video ID
-  const videoId = getVideoSlug(url);
-  if (!videoId) return '';
-  
-  // Return the standard embed format without the pub parameter
-  return `https://rumble.com/embed/${videoId}/`;
-} 
+// Remove getVideoEmbedUrl if unused; embed URL is now hardcoded
+// export function getVideoEmbedUrl(url: string): string {
+//   // Implementation here
+// } 

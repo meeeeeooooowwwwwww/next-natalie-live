@@ -5,6 +5,8 @@ import { FaArrowLeft, FaTwitter, FaFacebook, FaEnvelope } from 'react-icons/fa';
 import { getVideoSlug, getVideoEmbedUrl } from '@/utils/videos';
 import { getVideoById } from '@/utils/videos';
 import { notFound } from 'next/navigation';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 type Props = {
   params: { id: string }
@@ -18,6 +20,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: video ? `${video.title} | War Room` : 'War Room Video',
     description: video ? `Watch ${video.title} on War Room` : 'Watch War Room videos'
   };
+}
+
+// Assuming each video object has a type with an `id` field
+interface Video {
+  id: string;
+  // other fields can be added here if needed
+}
+
+// Generate static paths for all videos
+export async function generateStaticParams() {
+  const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
+  const data = await fs.readFile(filePath, 'utf-8');
+  const videos: Video[] = JSON.parse(data);
+  return videos.map((video) => ({
+    id: video.id, // Assumes each video has an 'id' field like "v6q4wc0"
+  }));
 }
 
 export default async function VideoPage({ params }: Props) {
