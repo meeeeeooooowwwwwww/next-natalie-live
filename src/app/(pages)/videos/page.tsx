@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getVideoSlug, getVideoEmbedUrl, getVideosFeed } from '@/utils/videos';
+import { getNatalieVideosFeed } from "@/utils/natalieVideos";
+import { getVideoSlug } from '@/utils/videos';
 
 export const metadata: Metadata = {
   title: 'War Room Videos',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function VideosPage() {
   // Get videos using direct utility function
-  const videos = await getVideosFeed();
+  const videos = await getNatalieVideosFeed();
   
   if (!videos || videos.length === 0) {
     return (
