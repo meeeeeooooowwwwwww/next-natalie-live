@@ -32,20 +32,20 @@ export async function generateStaticParams() {
   const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
   const data = await fs.readFile(filePath, 'utf-8');
   const videos: Video[] = JSON.parse(data);
-  return videos.map((video) => ({
-    id: video.id, // Assumes each video has an 'id' field like "v6q4wc0"
+  return videos.slice(0, 50).map((video) => ({
+    id: video.id,
   }));
 }
 
 export default async function VideoPage({ params }: Props) {
   const id = params.id;
-  
-  // Create the embed URL directly from the ID parameter without the pub parameter
   const embedUrl = `https://rumble.com/embed/${id}/`;
-  
-  // Get video data directly using the utility function
   const video = await getVideoById(id);
-  
+
+  if (!video) {
+    notFound(); // Returns a 404 page for IDs beyond the first 50
+  }
+
   return (
     <div className="container mx-auto px-4 py-12">
       <Link href="/videos" className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-8">
