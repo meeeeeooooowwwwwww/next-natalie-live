@@ -1,0 +1,229 @@
+# API Route Implementation and Integration Review
+
+## 1. src/app/api/natalie-videos/route.ts
+```typescript
+import { NextResponse } from 'next/server';
+import { getNatalieVideosFeed, getPaginatedNatalieVideos } from '@/utils/natalieVideos';
+
+export async function GET(request: Request) {
+  try {
+    // Parse the request URL to get query parameters
+    const { searchParams } = new URL(request.url);
+    const page = Number(searchParams.get('page')) || 1;
+    const limit = Number(searchParams.get('limit')) || 12;
+    const feed = searchParams.get('feed') === 'true';
+
+    // If feed parameter is true, return all videos
+    if (feed) {
+      const videos = await getNatalieVideosFeed();
+      return NextResponse.json(videos);
+    }
+
+    // Otherwise, get paginated videos
+    const videos = await getPaginatedNatalieVideos(page, limit);
+
+    // Return the videos as JSON
+    return NextResponse.json(videos);
+  } catch (error) {
+    console.error('Error in natalie-videos API route:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch Natalie Winters videos' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## 2. package.json
+```json
+{
+  "name": "helios-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "build:cloudflare": "npx @cloudflare/next-on-pages",
+    "start": "next start -p 3002",
+    "lint": "next lint",
+    "clean": "rimraf .next && npm run dev"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.1",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.5",
+    "next": "^14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^5.0.1",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.6.3",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "@types/react-slick": "^0.23.13",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8.4.35",
+    "rimraf": "^5.0.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vercel": "^41.4.1",
+    "wrangler": "^4.2.0"
+  }
+}
+```
+
+## 3. next.config.js
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['1a-1791.com'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://rumble.com https://*.rumble.cloud;
+              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+              img-src 'self' https://1a-1791.com https://rumble.com https://*.rumble.cloud data:;
+              font-src 'self' https://fonts.gstatic.com;
+              object-src 'none';
+              base-uri 'self';
+              form-action 'self';
+              frame-ancestors 'self';
+              frame-src 'self' https://rumble.com https://*.rumble.cloud;
+              connect-src 'self' https://rumble.com https://*.rumble.cloud;
+              media-src 'self' https://rumble.com https://*.rumble.cloud;
+            `.replace(/\s+/g, ' ').trim()
+          }
+        ]
+      }
+    ]
+  },
+  webpack: (config, { isServer }) => {
+    // Silence the punycode deprecation warning
+    config.ignoreWarnings = [
+      { module: /node_modules\/punycode/ }
+    ];
+    return config;
+  },
+}
+
+module.exports = nextConfig
+```
+
+## 4. Pages Importing the API Route
+
+### 4.1 src/app/(pages)/videos/natalie-winters/page.tsx (Example)
+```tsx
+import { Metadata } from 'next';
+import { getNatalieVideosFeed } from '@/utils/natalieVideos';
+
+export const metadata: Metadata = {
+  title: 'Natalie Winters Videos | War Room Reports',
+  description: 'Watch the latest videos featuring Natalie Winters from War Room.'
+};
+
+async function NatalieWintersVideosPage() {
+  // Note: This directly uses the utility function instead of fetching from the API route
+  // for better static generation and serverless compatibility
+  const videos = await getNatalieVideosFeed();
+  
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">Natalie Winters Videos</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {videos.map((video) => (
+          <div key={video.id} className="border rounded-lg overflow-hidden shadow-md">
+            {/* Video display logic here */}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default NatalieWintersVideosPage;
+```
+
+### 4.2 Client-Side Data Fetching Example
+```tsx
+'use client';
+
+import { useState, useEffect } from 'react';
+import { WarroomVideo } from '@/utils/videos';
+
+export default function VideoList() {
+  const [videos, setVideos] = useState<WarroomVideo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        // Using the API route with client-side fetching
+        const response = await fetch('/api/natalie-videos?page=1&limit=12');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch videos');
+        }
+        
+        const data = await response.json();
+        setVideos(data);
+      } catch (err) {
+        setError('Error loading videos');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchVideos();
+  }, []);
+  
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {videos.map((video) => (
+        <div key={video.id} className="border rounded-lg p-4">
+          <h3>{video.title}</h3>
+          {/* Video display logic */}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## 5. Notes on API Usage in Cloudflare Pages Environment
+
+### Best Practices
+1. **Server Components**: In Next.js App Router, prefer direct utility function calls (like `getNatalieVideosFeed()`) instead of API routes for server components.
+
+2. **Client Components**: Use API routes (`/api/natalie-videos`) in client components with the `useEffect` hook for client-side data fetching.
+
+3. **Environment Compatibility**: 
+   - The utility functions now handle both file system access (works in development) and public file fetching (works in Cloudflare).
+   - API routes use valid HTTP method exports (GET, POST) which are compatible with Cloudflare Pages.
+
+4. **Data Access Patterns**:
+   - During build time: Direct utility function calls
+   - During runtime (client): API route calls
+   - Fallback: Public directory JSON access 

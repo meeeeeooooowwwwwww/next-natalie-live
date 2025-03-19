@@ -17,13 +17,19 @@ export async function getVideosFeed(): Promise<WarroomVideo[]> {
   return response.json();
 }
 
-export async function getVideoById(id: string): Promise<WarroomVideo | null> {
+/**
+ * Get a video by its ID/slug
+ */
+export async function getVideoById(id: string) {
+  // Get all videos from the feed
   const videos = await getVideosFeed();
-  // Find video with matching ID
-  const video = videos.find((video) => {
+  
+  // Find the video with matching ID
+  const video = videos.find(video => {
     const videoId = getVideoSlug(video.link);
     return videoId === id;
   });
+  
   return video || null;
 }
 
