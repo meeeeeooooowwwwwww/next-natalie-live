@@ -2,22 +2,74 @@ import fs from 'fs';
 import path from 'path';
 import { WarroomVideo } from './videos';
 
-// Path to the Natalie Winters videos JSON file
-const dataFilePath = path.join(process.cwd(), 'src', 'data', 'natalie-videos.json');
+// Dynamically determine the correct path based on environment
+const getDataFilePath = () => {
+  // Main path that works in development
+  const devPath = path.join(process.cwd(), 'src', 'data', 'natalie-videos.json');
+  
+  // Alternative paths to try in production environments
+  const alternatives = [
+    path.join(process.cwd(), 'src', 'data', 'natalie-videos.json'),
+    path.join(process.cwd(), 'data', 'natalie-videos.json'),
+    path.join(process.cwd(), '.vercel', 'output', 'functions', 'data', 'natalie-videos.json'),
+    path.join(process.cwd(), '.vercel', 'output', 'static', 'data', 'natalie-videos.json')
+  ];
+  
+  // In development, just use the dev path
+  if (process.env.NODE_ENV === 'development') {
+    return devPath;
+  }
+  
+  // In production, try the alternatives
+  for (const altPath of alternatives) {
+    try {
+      if (fs.existsSync(altPath)) {
+        return altPath;
+      }
+    } catch (error) {
+      // Ignore errors for non-existent paths
+    }
+  }
+  
+  // Default to the dev path if none of the alternatives exist
+  return devPath;
+};
+
+// Function to safely read the JSON data
+const readJsonData = async (): Promise<WarroomVideo[]> => {
+  try {
+    const filePath = getDataFilePath();
+    const data = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(data) as WarroomVideo[];
+  } catch (error) {
+    console.error('Error reading JSON file:', error);
+    
+    // Fallback: try to fetch from the public URL 
+    if (typeof window !== 'undefined' || typeof fetch !== 'undefined') {
+      try {
+        console.log('Attempting to fetch from public URL');
+        // Use relative URL to avoid CORS issues
+        const publicUrl = '/data/natalie-videos.json';
+        const response = await fetch(publicUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        return await response.json() as WarroomVideo[];
+      } catch (fetchError) {
+        console.error('Error fetching JSON from public URL:', fetchError);
+        return [];
+      }
+    }
+    
+    return [];
+  }
+};
 
 /**
  * Read the Natalie Winters videos from the JSON file
  */
 export async function getNatalieVideosFeed(): Promise<WarroomVideo[]> {
-  try {
-    // Read the JSON file
-    const data = fs.readFileSync(dataFilePath, 'utf8');
-    const videos = JSON.parse(data) as WarroomVideo[];
-    return videos;
-  } catch (error) {
-    console.error('Error reading Natalie Winters videos:', error);
-    return [];
-  }
+  return await readJsonData();
 }
 
 /**

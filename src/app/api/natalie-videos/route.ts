@@ -7,8 +7,15 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = Number(searchParams.get('page')) || 1;
     const limit = Number(searchParams.get('limit')) || 12;
+    const feed = searchParams.get('feed') === 'true';
 
-    // Get the videos
+    // If feed parameter is true, return all videos
+    if (feed) {
+      const videos = await getNatalieVideosFeed();
+      return NextResponse.json(videos);
+    }
+
+    // Otherwise, get paginated videos
     const videos = await getPaginatedNatalieVideos(page, limit);
 
     // Return the videos as JSON
@@ -17,20 +24,6 @@ export async function GET(request: Request) {
     console.error('Error in natalie-videos API route:', error);
     return NextResponse.json(
       { error: 'Failed to fetch Natalie Winters videos' },
-      { status: 500 }
-    );
-  }
-}
-
-// Add a named export for the feed
-export async function feed() {
-  try {
-    const videos = await getNatalieVideosFeed();
-    return NextResponse.json(videos);
-  } catch (error) {
-    console.error('Error in natalie-videos feed API route:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch Natalie Winters videos feed' },
       { status: 500 }
     );
   }

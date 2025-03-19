@@ -1,0 +1,97 @@
+Step-by-Step Solution
+To make your project work both locally and on Cloudflare Pages, we need to:
+Fix the invalid feed export in the API route.
+
+Ensure JSON file access works consistently across environments.
+
+Test and validate the changes.
+
+1. Fix the API Route (src/app/api/natalie-videos/route.ts)
+Since the error explicitly mentions "feed" is not a valid Route export field, your route file likely has an export like this:
+typescript
+
+export const feed = async () => {
+  // Logic to fetch JSON data
+};
+
+Next.js Route Handlers (in the App Router) require exports to be HTTP method names (GET, POST, etc.). Let’s assume this route is meant to serve JSON data when requested (e.g., via a GET request). Update it to:
+typescript
+
+// src/app/api/natalie-videos/route.ts
+import { NextResponse } from "next/server";
+import { promises as fs } from "fs"; // Node.js fs for reading files
+import path from "path";
+
+// Define the path to your JSON file (relative to project root)
+const jsonFilePath = path.join(process.cwd(), "data", "natalie-videos.json");
+
+export async function GET() {
+  try {
+    // Read the JSON file
+    const fileContents = await fs.readFile(jsonFilePath, "utf-8");
+    const data = JSON.parse(fileContents);
+    
+    // Return the data as a JSON response
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error reading JSON file:", error);
+    return NextResponse.json(
+      { error: "Failed to load video data" },
+      { status: 500 }
+    );
+  }
+}
+
+Key Changes:
+Replaced feed with GET to match Next.js Route Handler requirements.
+
+Used process.cwd() to dynamically resolve the file path, ensuring it works in both local and Cloudflare environments.
+
+Added error handling for robustness.
+
+Assumptions:
+Your JSON file is located at data/natalie-videos.json in your project. Adjust the jsonFilePath if it’s somewhere else (e.g., public/data/natalie-videos.json).
+
+2. Ensure JSON File Access Works Across Environments
+Cloudflare Pages builds your Next.js app in a serverless environment, and file system access can differ from local development. Here’s how to handle JSON data:
+Store JSON in the Project: Place your JSON files in a directory like data/ or public/.
+data/ (private): Use fs to read it in API routes or getServerSideProps/getStaticProps.
+
+public/ (publicly accessible): Fetch it via HTTP (e.g., /data/natalie-videos.json) in client-side code or API routes.
+
+Dynamic Path Resolution: process.cwd() ensures the file path is resolved relative to the working directory, which works in both local and Cloudflare builds.
+
+Include Files in Build: Ensure your JSON files are committed to GitHub and not ignored by .gitignore. Cloudflare Pages only has access to what’s in your repository.
+
+If your JSON is in public/, you could alternatively fetch it like this:
+typescript
+
+// src/app/api/natalie-videos/route.ts
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/data/natalie-videos.json`);
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to load video data" }, { status: 500 });
+  }
+}
+
+Set NEXT_PUBLIC_BASE_URL in your .env file (e.g., http://localhost:3000 locally and your Cloudflare domain in production).
+3. Test Locally
+Run these commands to verify:
+bash
+
+npm run build  # Should complete without errors
+npm run start  # Test the production build locally
+
+Then, test the API route:
+Open http://localhost:3000/api/natalie-videos in your browser or use curl.
+
+Confirm it returns the expected JSON data.
+
+4. Deploy to Cloudflare
+Commit and push your changes:
+
