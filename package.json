@@ -5,12 +5,12 @@
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",
+    "build:cloudflare": "npx @cloudflare/next-on-pages",
     "start": "next start -p 3002",
     "lint": "next lint",
     "clean": "rimraf .next && npm run dev"
   },
   "dependencies": {
-    "@cloudflare/next-on-pages": "^1.6.3",
     "@heroicons/react": "^2.1.1",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.5",
@@ -23,6 +23,7 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.6.3",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.57",
@@ -34,6 +35,8 @@
     "postcss": "^8.4.35",
     "rimraf": "^5.0.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vercel": "^41.4.1",
+    "wrangler": "^4.2.0"
   }
 }

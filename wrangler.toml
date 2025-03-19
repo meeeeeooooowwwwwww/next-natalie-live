@@ -1,6 +1,11 @@
 [build]
-command = "npx @cloudflare/next-on-pages@1"
+command = "npm run build:cloudflare"
+
 [site]
-bucket = "/.vercel/output/static"
+bucket = ".vercel/output/static"
+
 [build.environment]
-NODE_VERSION = "18" 
+NODE_VERSION = "18"
+
+[pages]
+pages_build_output_dir = ".vercel/output/static" 

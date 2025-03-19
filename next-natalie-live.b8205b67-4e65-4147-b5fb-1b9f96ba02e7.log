@@ -1,0 +1,410 @@
+2025-03-19T20:14:40.660089Z	Cloning repository...
+2025-03-19T20:14:46.288766Z	From https://github.com/meeeeeooooowwwwwww/next-natalie-live
+2025-03-19T20:14:46.289303Z	 * branch            2e79a410f5cec8b0d9a86c348c83329923df9920 -> FETCH_HEAD
+2025-03-19T20:14:46.289492Z	
+2025-03-19T20:14:47.21562Z	HEAD is now at 2e79a41 Update deployment configuration for Cloudflare Pages defaults
+2025-03-19T20:14:47.216205Z	
+2025-03-19T20:14:47.295996Z	
+2025-03-19T20:14:47.296485Z	Using v2 root directory strategy
+2025-03-19T20:14:47.316718Z	Success: Finished cloning repository files
+2025-03-19T20:14:48.993076Z	Checking for configuration in a Wrangler configuration file (BETA)
+2025-03-19T20:14:48.993611Z	
+2025-03-19T20:14:48.995066Z	Found wrangler.toml file. Reading build configuration...
+2025-03-19T20:14:50.095674Z	A wrangler.toml file was found but it does not appear to be valid. Did you mean to use wrangler.toml to configure Pages? If so, then make sure the file is valid and contains the `pages_build_output_dir` property. Skipping file and continuing.
+2025-03-19T20:14:50.16205Z	Detected the following tools from environment: npm@9.6.7, nodejs@18.17.1
+2025-03-19T20:14:50.162744Z	Installing project dependencies: npm clean-install --progress=false
+2025-03-19T20:14:55.846321Z	npm ERR! code EUSAGE
+2025-03-19T20:14:55.878088Z	npm ERR! 
+2025-03-19T20:14:55.878303Z	npm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+2025-03-19T20:14:55.878475Z	npm ERR! 
+2025-03-19T20:14:55.878555Z	npm ERR! Missing: @cloudflare/next-on-pages@1.13.10 from lock file
+2025-03-19T20:14:55.878658Z	npm ERR! Missing: vercel@41.4.1 from lock file
+2025-03-19T20:14:55.878814Z	npm ERR! Missing: wrangler@4.2.0 from lock file
+2025-03-19T20:14:55.878924Z	npm ERR! Missing: ast-types@0.14.2 from lock file
+2025-03-19T20:14:55.879028Z	npm ERR! Missing: chalk@5.4.1 from lock file
+2025-03-19T20:14:55.879155Z	npm ERR! Missing: commander@11.1.0 from lock file
+2025-03-19T20:14:55.879335Z	npm ERR! Missing: cookie@0.5.0 from lock file
+2025-03-19T20:14:55.879471Z	npm ERR! Missing: esbuild@0.15.18 from lock file
+2025-03-19T20:14:55.879585Z	npm ERR! Missing: miniflare@3.20250310.1 from lock file
+2025-03-19T20:14:55.879652Z	npm ERR! Missing: package-manager-manager@0.2.0 from lock file
+2025-03-19T20:14:55.87971Z	npm ERR! Missing: pcre-to-regexp@1.1.0 from lock file
+2025-03-19T20:14:55.879805Z	npm ERR! Missing: @esbuild/android-arm@0.15.18 from lock file
+2025-03-19T20:14:55.879865Z	npm ERR! Missing: @esbuild/linux-loong64@0.15.18 from lock file
+2025-03-19T20:14:55.879929Z	npm ERR! Missing: esbuild-android-64@0.15.18 from lock file
+2025-03-19T20:14:55.880077Z	npm ERR! Missing: esbuild-android-arm64@0.15.18 from lock file
+2025-03-19T20:14:55.880149Z	npm ERR! Missing: esbuild-darwin-64@0.15.18 from lock file
+2025-03-19T20:14:55.880309Z	npm ERR! Missing: esbuild-darwin-arm64@0.15.18 from lock file
+2025-03-19T20:14:55.880508Z	npm ERR! Missing: esbuild-freebsd-64@0.15.18 from lock file
+2025-03-19T20:14:55.880666Z	npm ERR! Missing: esbuild-freebsd-arm64@0.15.18 from lock file
+2025-03-19T20:14:55.880856Z	npm ERR! Missing: esbuild-linux-32@0.15.18 from lock file
+2025-03-19T20:14:55.881021Z	npm ERR! Missing: esbuild-linux-64@0.15.18 from lock file
+2025-03-19T20:14:55.881184Z	npm ERR! Missing: esbuild-linux-arm@0.15.18 from lock file
+2025-03-19T20:14:55.881294Z	npm ERR! Missing: esbuild-linux-arm64@0.15.18 from lock file
+2025-03-19T20:14:55.881481Z	npm ERR! Missing: esbuild-linux-mips64le@0.15.18 from lock file
+2025-03-19T20:14:55.881592Z	npm ERR! Missing: esbuild-linux-ppc64le@0.15.18 from lock file
+2025-03-19T20:14:55.881744Z	npm ERR! Missing: esbuild-linux-riscv64@0.15.18 from lock file
+2025-03-19T20:14:55.881841Z	npm ERR! Missing: esbuild-linux-s390x@0.15.18 from lock file
+2025-03-19T20:14:55.882032Z	npm ERR! Missing: esbuild-netbsd-64@0.15.18 from lock file
+2025-03-19T20:14:55.882147Z	npm ERR! Missing: esbuild-openbsd-64@0.15.18 from lock file
+2025-03-19T20:14:55.882219Z	npm ERR! Missing: esbuild-sunos-64@0.15.18 from lock file
+2025-03-19T20:14:55.882278Z	npm ERR! Missing: esbuild-windows-32@0.15.18 from lock file
+2025-03-19T20:14:55.882334Z	npm ERR! Missing: esbuild-windows-64@0.15.18 from lock file
+2025-03-19T20:14:55.882403Z	npm ERR! Missing: esbuild-windows-arm64@0.15.18 from lock file
+2025-03-19T20:14:55.882466Z	npm ERR! Missing: @cspotcode/source-map-support@0.8.1 from lock file
+2025-03-19T20:14:55.882526Z	npm ERR! Missing: acorn@8.14.0 from lock file
+2025-03-19T20:14:55.882612Z	npm ERR! Missing: acorn-walk@8.3.2 from lock file
+2025-03-19T20:14:55.882676Z	npm ERR! Missing: exit-hook@2.2.1 from lock file
+2025-03-19T20:14:55.882784Z	npm ERR! Missing: stoppable@1.1.0 from lock file
+2025-03-19T20:14:55.88291Z	npm ERR! Missing: undici@5.29.0 from lock file
+2025-03-19T20:14:55.883012Z	npm ERR! Missing: workerd@1.20250310.0 from lock file
+2025-03-19T20:14:55.883165Z	npm ERR! Missing: ws@8.18.0 from lock file
+2025-03-19T20:14:55.883308Z	npm ERR! Missing: youch@3.2.3 from lock file
+2025-03-19T20:14:55.883476Z	npm ERR! Missing: zod@3.22.3 from lock file
+2025-03-19T20:14:55.88358Z	npm ERR! Missing: @jridgewell/trace-mapping@0.3.9 from lock file
+2025-03-19T20:14:55.883814Z	npm ERR! Missing: shellac@0.8.0 from lock file
+2025-03-19T20:14:55.883934Z	npm ERR! Missing: reghex@1.0.2 from lock file
+2025-03-19T20:14:55.884005Z	npm ERR! Missing: @fastify/busboy@2.1.1 from lock file
+2025-03-19T20:14:55.884089Z	npm ERR! Missing: @vercel/build-utils@10.5.1 from lock file
+2025-03-19T20:14:55.88415Z	npm ERR! Missing: @vercel/fun@1.1.5 from lock file
+2025-03-19T20:14:55.884207Z	npm ERR! Missing: @vercel/go@3.2.1 from lock file
+2025-03-19T20:14:55.884279Z	npm ERR! Missing: @vercel/hydrogen@1.2.0 from lock file
+2025-03-19T20:14:55.884346Z	npm ERR! Missing: @vercel/next@4.7.4 from lock file
+2025-03-19T20:14:55.884403Z	npm ERR! Missing: @vercel/node@5.1.14 from lock file
+2025-03-19T20:14:55.884466Z	npm ERR! Missing: @vercel/python@4.7.1 from lock file
+2025-03-19T20:14:55.884579Z	npm ERR! Missing: @vercel/redwood@2.3.0 from lock file
+2025-03-19T20:14:55.884641Z	npm ERR! Missing: @vercel/remix-builder@5.4.3 from lock file
+2025-03-19T20:14:55.884699Z	npm ERR! Missing: @vercel/ruby@2.2.0 from lock file
+2025-03-19T20:14:55.884801Z	npm ERR! Missing: @vercel/static-build@2.7.6 from lock file
+2025-03-19T20:14:55.884873Z	npm ERR! Missing: chokidar@4.0.0 from lock file
+2025-03-19T20:14:55.884938Z	npm ERR! Missing: jose@5.9.6 from lock file
+2025-03-19T20:14:55.885005Z	npm ERR! Missing: @tootallnate/once@2.0.0 from lock file
+2025-03-19T20:14:55.88507Z	npm ERR! Missing: async-listen@1.2.0 from lock file
+2025-03-19T20:14:55.885127Z	npm ERR! Missing: debug@4.3.4 from lock file
+2025-03-19T20:14:55.885185Z	npm ERR! Missing: generic-pool@3.4.2 from lock file
+2025-03-19T20:14:55.885248Z	npm ERR! Missing: micro@9.3.5-canary.3 from lock file
+2025-03-19T20:14:55.885305Z	npm ERR! Missing: ms@2.1.1 from lock file
+2025-03-19T20:14:55.885368Z	npm ERR! Missing: node-fetch@2.6.7 from lock file
+2025-03-19T20:14:55.885426Z	npm ERR! Missing: path-match@1.2.4 from lock file
+2025-03-19T20:14:55.885487Z	npm ERR! Missing: promisepipe@3.0.0 from lock file
+2025-03-19T20:14:55.885554Z	npm ERR! Missing: semver@7.5.4 from lock file
+2025-03-19T20:14:55.885624Z	npm ERR! Missing: stat-mode@0.3.0 from lock file
+2025-03-19T20:14:55.885686Z	npm ERR! Missing: stream-to-promise@2.2.0 from lock file
+2025-03-19T20:14:55.88576Z	npm ERR! Missing: tar@6.2.1 from lock file
+2025-03-19T20:14:55.885816Z	npm ERR! Missing: tinyexec@0.3.2 from lock file
+2025-03-19T20:14:55.885877Z	npm ERR! Missing: tree-kill@1.2.2 from lock file
+2025-03-19T20:14:55.88594Z	npm ERR! Missing: uid-promise@1.0.0 from lock file
+2025-03-19T20:14:55.886Z	npm ERR! Missing: uuid@3.3.2 from lock file
+2025-03-19T20:14:55.886053Z	npm ERR! Missing: xdg-app-paths@5.1.0 from lock file
+2025-03-19T20:14:55.886107Z	npm ERR! Missing: yauzl-promise@2.1.3 from lock file
+2025-03-19T20:14:55.886168Z	npm ERR! Missing: @vercel/static-config@3.0.0 from lock file
+2025-03-19T20:14:55.886221Z	npm ERR! Missing: ts-morph@12.0.0 from lock file
+2025-03-19T20:14:55.886275Z	npm ERR! Missing: @vercel/nft@0.27.10 from lock file
+2025-03-19T20:14:55.88633Z	npm ERR! Missing: @mapbox/node-pre-gyp@2.0.0 from lock file
+2025-03-19T20:14:55.886383Z	npm ERR! Missing: @rollup/pluginutils@5.1.4 from lock file
+2025-03-19T20:14:55.886436Z	npm ERR! Missing: acorn-import-attributes@1.9.5 from lock file
+2025-03-19T20:14:55.886489Z	npm ERR! Missing: async-sema@3.1.1 from lock file
+2025-03-19T20:14:55.886542Z	npm ERR! Missing: bindings@1.5.0 from lock file
+2025-03-19T20:14:55.886597Z	npm ERR! Missing: estree-walker@2.0.2 from lock file
+2025-03-19T20:14:55.886699Z	npm ERR! Missing: glob@7.2.3 from lock file
+2025-03-19T20:14:55.886792Z	npm ERR! Missing: node-gyp-build@4.8.4 from lock file
+2025-03-19T20:14:55.886855Z	npm ERR! Missing: picomatch@4.0.2 from lock file
+2025-03-19T20:14:55.88691Z	npm ERR! Missing: resolve-from@5.0.0 from lock file
+2025-03-19T20:14:55.886978Z	npm ERR! Missing: consola@3.4.2 from lock file
+2025-03-19T20:14:55.88704Z	npm ERR! Missing: detect-libc@2.0.3 from lock file
+2025-03-19T20:14:55.887097Z	npm ERR! Missing: https-proxy-agent@7.0.6 from lock file
+2025-03-19T20:14:55.887156Z	npm ERR! Missing: nopt@8.1.0 from lock file
+2025-03-19T20:14:55.887213Z	npm ERR! Missing: tar@7.4.3 from lock file
+2025-03-19T20:14:55.887269Z	npm ERR! Missing: @types/estree@1.0.6 from lock file
+2025-03-19T20:14:55.887322Z	npm ERR! Missing: picomatch@4.0.2 from lock file
+2025-03-19T20:14:55.887379Z	npm ERR! Missing: @edge-runtime/node-utils@2.3.0 from lock file
+2025-03-19T20:14:55.887435Z	npm ERR! Missing: @edge-runtime/primitives@4.1.0 from lock file
+2025-03-19T20:14:55.887497Z	npm ERR! Missing: @edge-runtime/vm@3.2.0 from lock file
+2025-03-19T20:14:55.887554Z	npm ERR! Missing: @types/node@16.18.11 from lock file
+2025-03-19T20:14:55.887609Z	npm ERR! Missing: @vercel/error-utils@2.0.3 from lock file
+2025-03-19T20:14:55.887664Z	npm ERR! Missing: async-listen@3.0.0 from lock file
+2025-03-19T20:14:55.887724Z	npm ERR! Missing: cjs-module-lexer@1.2.3 from lock file
+2025-03-19T20:14:55.887827Z	npm ERR! Missing: edge-runtime@2.5.9 from lock file
+2025-03-19T20:14:55.887892Z	npm ERR! Missing: es-module-lexer@1.4.1 from lock file
+2025-03-19T20:14:55.887952Z	npm ERR! Missing: esbuild@0.14.47 from lock file
+2025-03-19T20:14:55.88801Z	npm ERR! Missing: etag@1.8.1 from lock file
+2025-03-19T20:14:55.888072Z	npm ERR! Missing: node-fetch@2.6.9 from lock file
+2025-03-19T20:14:55.888131Z	npm ERR! Missing: path-to-regexp@6.1.0 from lock file
+2025-03-19T20:14:55.888187Z	npm ERR! Missing: path-to-regexp-updated@6.3.0 from lock file
+2025-03-19T20:14:55.888243Z	npm ERR! Missing: ts-node@10.9.1 from lock file
+2025-03-19T20:14:55.888298Z	npm ERR! Missing: typescript@4.9.5 from lock file
+2025-03-19T20:14:55.888354Z	npm ERR! Missing: undici@5.28.4 from lock file
+2025-03-19T20:14:55.888408Z	npm ERR! Missing: semver@6.3.1 from lock file
+2025-03-19T20:14:55.888468Z	npm ERR! Missing: @vercel/gatsby-plugin-vercel-analytics@1.0.11 from lock file
+2025-03-19T20:14:55.888534Z	npm ERR! Missing: @vercel/gatsby-plugin-vercel-builder@2.0.80 from lock file
+2025-03-19T20:14:55.888593Z	npm ERR! Missing: web-vitals@0.2.4 from lock file
+2025-03-19T20:14:55.888657Z	npm ERR! Missing: @sinclair/typebox@0.25.24 from lock file
+2025-03-19T20:14:55.888723Z	npm ERR! Missing: esbuild@0.14.47 from lock file
+2025-03-19T20:14:55.888795Z	npm ERR! Missing: fs-extra@11.1.0 from lock file
+2025-03-19T20:14:55.888852Z	npm ERR! Missing: ajv@8.6.3 from lock file
+2025-03-19T20:14:55.888906Z	npm ERR! Missing: json-schema-to-ts@1.6.4 from lock file
+2025-03-19T20:14:55.88896Z	npm ERR! Missing: file-uri-to-path@1.0.0 from lock file
+2025-03-19T20:14:55.889014Z	npm ERR! Missing: @edge-runtime/format@2.2.1 from lock file
+2025-03-19T20:14:55.889067Z	npm ERR! Missing: @edge-runtime/ponyfill@2.4.2 from lock file
+2025-03-19T20:14:55.889121Z	npm ERR! Missing: async-listen@3.0.1 from lock file
+2025-03-19T20:14:55.889176Z	npm ERR! Missing: mri@1.2.0 from lock file
+2025-03-19T20:14:55.889233Z	npm ERR! Missing: picocolors@1.0.0 from lock file
+2025-03-19T20:14:55.889285Z	npm ERR! Missing: pretty-ms@7.0.1 from lock file
+2025-03-19T20:14:55.889338Z	npm ERR! Missing: signal-exit@4.0.2 from lock file
+2025-03-19T20:14:55.889399Z	npm ERR! Missing: time-span@4.0.0 from lock file
+2025-03-19T20:14:55.889458Z	npm ERR! Missing: jsonfile@6.1.0 from lock file
+2025-03-19T20:14:55.889515Z	npm ERR! Missing: universalify@2.0.1 from lock file
+2025-03-19T20:14:55.889576Z	npm ERR! Missing: agent-base@7.1.3 from lock file
+2025-03-19T20:14:55.889631Z	npm ERR! Missing: @types/json-schema@7.0.15 from lock file
+2025-03-19T20:14:55.889687Z	npm ERR! Missing: ts-toolbelt@6.15.5 from lock file
+2025-03-19T20:14:55.88977Z	npm ERR! Missing: arg@4.1.0 from lock file
+2025-03-19T20:14:55.889833Z	npm ERR! Missing: content-type@1.0.4 from lock file
+2025-03-19T20:14:55.889908Z	npm ERR! Missing: raw-body@2.4.1 from lock file
+2025-03-19T20:14:55.889968Z	npm ERR! Missing: whatwg-url@5.0.0 from lock file
+2025-03-19T20:14:55.890027Z	npm ERR! Missing: abbrev@3.0.0 from lock file
+2025-03-19T20:14:55.890081Z	npm ERR! Missing: http-errors@1.4.0 from lock file
+2025-03-19T20:14:55.890137Z	npm ERR! Missing: path-to-regexp@1.9.0 from lock file
+2025-03-19T20:14:55.890193Z	npm ERR! Missing: inherits@2.0.1 from lock file
+2025-03-19T20:14:55.890251Z	npm ERR! Missing: statuses@1.5.0 from lock file
+2025-03-19T20:14:55.890305Z	npm ERR! Missing: parse-ms@2.1.0 from lock file
+2025-03-19T20:14:55.890359Z	npm ERR! Missing: bytes@3.1.0 from lock file
+2025-03-19T20:14:55.890413Z	npm ERR! Missing: http-errors@1.7.3 from lock file
+2025-03-19T20:14:55.890469Z	npm ERR! Missing: iconv-lite@0.4.24 from lock file
+2025-03-19T20:14:55.890523Z	npm ERR! Missing: unpipe@1.0.0 from lock file
+2025-03-19T20:14:55.890712Z	npm ERR! Missing: safer-buffer@2.1.2 from lock file
+2025-03-19T20:14:55.890809Z	npm ERR! Missing: end-of-stream@1.1.0 from lock file
+2025-03-19T20:14:55.890876Z	npm ERR! Missing: stream-to-array@2.3.0 from lock file
+2025-03-19T20:14:55.890933Z	npm ERR! Missing: once@1.3.3 from lock file
+2025-03-19T20:14:55.890987Z	npm ERR! Missing: chownr@2.0.0 from lock file
+2025-03-19T20:14:55.891042Z	npm ERR! Missing: fs-minipass@2.1.0 from lock file
+2025-03-19T20:14:55.891099Z	npm ERR! Missing: minipass@5.0.0 from lock file
+2025-03-19T20:14:55.891154Z	npm ERR! Missing: minizlib@2.1.2 from lock file
+2025-03-19T20:14:55.891208Z	npm ERR! Missing: mkdirp@1.0.4 from lock file
+2025-03-19T20:14:55.891262Z	npm ERR! Missing: yallist@4.0.0 from lock file
+2025-03-19T20:14:55.891316Z	npm ERR! Missing: minipass@3.3.6 from lock file
+2025-03-19T20:14:55.891369Z	npm ERR! Missing: minipass@3.3.6 from lock file
+2025-03-19T20:14:55.891424Z	npm ERR! Missing: convert-hrtime@3.0.0 from lock file
+2025-03-19T20:14:55.891477Z	npm ERR! Missing: @ts-morph/common@0.11.1 from lock file
+2025-03-19T20:14:55.891531Z	npm ERR! Missing: code-block-writer@10.1.1 from lock file
+2025-03-19T20:14:55.891585Z	npm ERR! Missing: path-browserify@1.0.1 from lock file
+2025-03-19T20:14:55.891637Z	npm ERR! Missing: @tsconfig/node10@1.0.11 from lock file
+2025-03-19T20:14:55.891689Z	npm ERR! Missing: @tsconfig/node12@1.0.11 from lock file
+2025-03-19T20:14:55.891762Z	npm ERR! Missing: @tsconfig/node14@1.0.3 from lock file
+2025-03-19T20:14:55.891818Z	npm ERR! Missing: @tsconfig/node16@1.0.4 from lock file
+2025-03-19T20:14:55.891872Z	npm ERR! Missing: arg@4.1.3 from lock file
+2025-03-19T20:14:55.891925Z	npm ERR! Missing: create-require@1.1.1 from lock file
+2025-03-19T20:14:55.891981Z	npm ERR! Missing: diff@4.0.2 from lock file
+2025-03-19T20:14:55.892036Z	npm ERR! Missing: make-error@1.3.6 from lock file
+2025-03-19T20:14:55.892091Z	npm ERR! Missing: v8-compile-cache-lib@3.0.1 from lock file
+2025-03-19T20:14:55.892144Z	npm ERR! Missing: yn@3.1.1 from lock file
+2025-03-19T20:14:55.892198Z	npm ERR! Missing: tr46@0.0.3 from lock file
+2025-03-19T20:14:55.892252Z	npm ERR! Missing: webidl-conversions@3.0.1 from lock file
+2025-03-19T20:14:55.892305Z	npm ERR! Missing: @cloudflare/workerd-darwin-64@1.20250310.0 from lock file
+2025-03-19T20:14:55.892367Z	npm ERR! Missing: @cloudflare/workerd-darwin-arm64@1.20250310.0 from lock file
+2025-03-19T20:14:55.892506Z	npm ERR! Missing: @cloudflare/workerd-linux-64@1.20250310.0 from lock file
+2025-03-19T20:14:55.892564Z	npm ERR! Missing: @cloudflare/workerd-linux-arm64@1.20250310.0 from lock file
+2025-03-19T20:14:55.892624Z	npm ERR! Missing: @cloudflare/workerd-windows-64@1.20250310.0 from lock file
+2025-03-19T20:14:55.892679Z	npm ERR! Missing: @cloudflare/kv-asset-handler@0.4.0 from lock file
+2025-03-19T20:14:55.892752Z	npm ERR! Missing: @cloudflare/unenv-preset@2.0.2 from lock file
+2025-03-19T20:14:55.89281Z	npm ERR! Missing: unenv@2.0.0-rc.14 from lock file
+2025-03-19T20:14:55.892865Z	npm ERR! Missing: blake3-wasm@2.1.5 from lock file
+2025-03-19T20:14:55.892918Z	npm ERR! Missing: esbuild@0.24.2 from lock file
+2025-03-19T20:14:55.892972Z	npm ERR! Missing: miniflare@4.20250317.1 from lock file
+2025-03-19T20:14:55.893025Z	npm ERR! Missing: path-to-regexp@6.3.0 from lock file
+2025-03-19T20:14:55.893079Z	npm ERR! Missing: sharp@0.33.5 from lock file
+2025-03-19T20:14:55.893141Z	npm ERR! Missing: workerd@1.20250317.0 from lock file
+2025-03-19T20:14:55.893203Z	npm ERR! Missing: mime@3.0.0 from lock file
+2025-03-19T20:14:55.893265Z	npm ERR! Missing: @img/sharp-darwin-arm64@0.33.5 from lock file
+2025-03-19T20:14:55.893318Z	npm ERR! Missing: @img/sharp-darwin-x64@0.33.5 from lock file
+2025-03-19T20:14:55.893372Z	npm ERR! Missing: @img/sharp-libvips-darwin-arm64@1.0.4 from lock file
+2025-03-19T20:14:55.893434Z	npm ERR! Missing: @img/sharp-libvips-darwin-x64@1.0.4 from lock file
+2025-03-19T20:14:55.893488Z	npm ERR! Missing: @img/sharp-libvips-linux-arm@1.0.5 from lock file
+2025-03-19T20:14:55.893544Z	npm ERR! Missing: @img/sharp-libvips-linux-arm64@1.0.4 from lock file
+2025-03-19T20:14:55.8936Z	npm ERR! Missing: @img/sharp-libvips-linux-s390x@1.0.4 from lock file
+2025-03-19T20:14:55.893673Z	npm ERR! Missing: @img/sharp-libvips-linux-x64@1.0.4 from lock file
+2025-03-19T20:14:55.893744Z	npm ERR! Missing: @img/sharp-libvips-linuxmusl-arm64@1.0.4 from lock file
+2025-03-19T20:14:55.893802Z	npm ERR! Missing: @img/sharp-libvips-linuxmusl-x64@1.0.4 from lock file
+2025-03-19T20:14:55.893855Z	npm ERR! Missing: @img/sharp-linux-arm@0.33.5 from lock file
+2025-03-19T20:14:55.893911Z	npm ERR! Missing: @img/sharp-linux-arm64@0.33.5 from lock file
+2025-03-19T20:14:55.893965Z	npm ERR! Missing: @img/sharp-linux-s390x@0.33.5 from lock file
+2025-03-19T20:14:55.894019Z	npm ERR! Missing: @img/sharp-linux-x64@0.33.5 from lock file
+2025-03-19T20:14:55.894074Z	npm ERR! Missing: @img/sharp-linuxmusl-arm64@0.33.5 from lock file
+2025-03-19T20:14:55.894129Z	npm ERR! Missing: @img/sharp-linuxmusl-x64@0.33.5 from lock file
+2025-03-19T20:14:55.894183Z	npm ERR! Missing: @img/sharp-wasm32@0.33.5 from lock file
+2025-03-19T20:14:55.894238Z	npm ERR! Missing: @img/sharp-win32-ia32@0.33.5 from lock file
+2025-03-19T20:14:55.894291Z	npm ERR! Missing: @img/sharp-win32-x64@0.33.5 from lock file
+2025-03-19T20:14:55.894346Z	npm ERR! Missing: color@4.2.3 from lock file
+2025-03-19T20:14:55.894397Z	npm ERR! Missing: color-string@1.9.1 from lock file
+2025-03-19T20:14:55.894452Z	npm ERR! Missing: simple-swizzle@0.2.2 from lock file
+2025-03-19T20:14:55.894511Z	npm ERR! Missing: is-arrayish@0.3.2 from lock file
+2025-03-19T20:14:55.894576Z	npm ERR! Missing: defu@6.1.4 from lock file
+2025-03-19T20:14:55.894633Z	npm ERR! Missing: exsolve@1.0.4 from lock file
+2025-03-19T20:14:55.894686Z	npm ERR! Missing: ohash@2.0.11 from lock file
+2025-03-19T20:14:55.894763Z	npm ERR! Missing: pathe@2.0.3 from lock file
+2025-03-19T20:14:55.894819Z	npm ERR! Missing: ufo@1.5.4 from lock file
+2025-03-19T20:14:55.894872Z	npm ERR! Missing: xdg-portable@7.3.0 from lock file
+2025-03-19T20:14:55.894928Z	npm ERR! Missing: os-paths@4.4.0 from lock file
+2025-03-19T20:14:55.894981Z	npm ERR! Missing: yauzl@2.10.0 from lock file
+2025-03-19T20:14:55.895034Z	npm ERR! Missing: yauzl-clone@1.0.4 from lock file
+2025-03-19T20:14:55.895087Z	npm ERR! Missing: buffer-crc32@0.2.13 from lock file
+2025-03-19T20:14:55.89514Z	npm ERR! Missing: fd-slicer@1.1.0 from lock file
+2025-03-19T20:14:55.895226Z	npm ERR! Missing: pend@1.2.0 from lock file
+2025-03-19T20:14:55.90418Z	npm ERR! Missing: events-intercept@2.0.0 from lock file
+2025-03-19T20:14:55.904296Z	npm ERR! Missing: mustache@4.2.0 from lock file
+2025-03-19T20:14:55.904362Z	npm ERR! Missing: stacktracey@2.1.8 from lock file
+2025-03-19T20:14:55.904432Z	npm ERR! Missing: as-table@1.0.55 from lock file
+2025-03-19T20:14:55.904495Z	npm ERR! Missing: get-source@2.0.12 from lock file
+2025-03-19T20:14:55.904552Z	npm ERR! Missing: printable-characters@1.0.42 from lock file
+2025-03-19T20:14:55.90461Z	npm ERR! Missing: data-uri-to-buffer@2.0.2 from lock file
+2025-03-19T20:14:55.904666Z	npm ERR! Missing: source-map@0.6.1 from lock file
+2025-03-19T20:14:55.904722Z	npm ERR! Missing: @isaacs/fs-minipass@4.0.1 from lock file
+2025-03-19T20:14:55.904793Z	npm ERR! Missing: chownr@3.0.0 from lock file
+2025-03-19T20:14:55.904849Z	npm ERR! Missing: minizlib@3.0.1 from lock file
+2025-03-19T20:14:55.904903Z	npm ERR! Missing: mkdirp@3.0.1 from lock file
+2025-03-19T20:14:55.905509Z	npm ERR! Missing: yallist@5.0.0 from lock file
+2025-03-19T20:14:55.905649Z	npm ERR! Missing: ms@2.1.2 from lock file
+2025-03-19T20:14:55.90579Z	npm ERR! Missing: lru-cache@6.0.0 from lock file
+2025-03-19T20:14:55.905873Z	npm ERR! Missing: esbuild-android-64@0.14.47 from lock file
+2025-03-19T20:14:55.905931Z	npm ERR! Missing: esbuild-android-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.905992Z	npm ERR! Missing: esbuild-darwin-64@0.14.47 from lock file
+2025-03-19T20:14:55.906055Z	npm ERR! Missing: esbuild-darwin-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.906125Z	npm ERR! Missing: esbuild-freebsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.906577Z	npm ERR! Missing: esbuild-freebsd-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.906694Z	npm ERR! Missing: esbuild-linux-32@0.14.47 from lock file
+2025-03-19T20:14:55.906849Z	npm ERR! Missing: esbuild-linux-64@0.14.47 from lock file
+2025-03-19T20:14:55.906961Z	npm ERR! Missing: esbuild-linux-arm@0.14.47 from lock file
+2025-03-19T20:14:55.907076Z	npm ERR! Missing: esbuild-linux-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.907179Z	npm ERR! Missing: esbuild-linux-mips64le@0.14.47 from lock file
+2025-03-19T20:14:55.907326Z	npm ERR! Missing: esbuild-linux-ppc64le@0.14.47 from lock file
+2025-03-19T20:14:55.907439Z	npm ERR! Missing: esbuild-linux-riscv64@0.14.47 from lock file
+2025-03-19T20:14:55.907572Z	npm ERR! Missing: esbuild-linux-s390x@0.14.47 from lock file
+2025-03-19T20:14:55.907684Z	npm ERR! Missing: esbuild-netbsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.9078Z	npm ERR! Missing: esbuild-openbsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.907904Z	npm ERR! Missing: esbuild-sunos-64@0.14.47 from lock file
+2025-03-19T20:14:55.908005Z	npm ERR! Missing: esbuild-windows-32@0.14.47 from lock file
+2025-03-19T20:14:55.908105Z	npm ERR! Missing: esbuild-windows-64@0.14.47 from lock file
+2025-03-19T20:14:55.908219Z	npm ERR! Missing: esbuild-windows-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.908315Z	npm ERR! Missing: esbuild-android-64@0.14.47 from lock file
+2025-03-19T20:14:55.908431Z	npm ERR! Missing: esbuild-android-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.908539Z	npm ERR! Missing: esbuild-darwin-64@0.14.47 from lock file
+2025-03-19T20:14:55.908643Z	npm ERR! Missing: esbuild-darwin-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.908771Z	npm ERR! Missing: esbuild-freebsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.908882Z	npm ERR! Missing: esbuild-freebsd-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.908982Z	npm ERR! Missing: esbuild-linux-32@0.14.47 from lock file
+2025-03-19T20:14:55.909086Z	npm ERR! Missing: esbuild-linux-64@0.14.47 from lock file
+2025-03-19T20:14:55.909928Z	npm ERR! Missing: esbuild-linux-arm@0.14.47 from lock file
+2025-03-19T20:14:55.910071Z	npm ERR! Missing: esbuild-linux-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.910173Z	npm ERR! Missing: esbuild-linux-mips64le@0.14.47 from lock file
+2025-03-19T20:14:55.910606Z	npm ERR! Missing: esbuild-linux-ppc64le@0.14.47 from lock file
+2025-03-19T20:14:55.910698Z	npm ERR! Missing: esbuild-linux-riscv64@0.14.47 from lock file
+2025-03-19T20:14:55.91108Z	npm ERR! Missing: esbuild-linux-s390x@0.14.47 from lock file
+2025-03-19T20:14:55.911368Z	npm ERR! Missing: esbuild-netbsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.911503Z	npm ERR! Missing: esbuild-openbsd-64@0.14.47 from lock file
+2025-03-19T20:14:55.911759Z	npm ERR! Missing: esbuild-sunos-64@0.14.47 from lock file
+2025-03-19T20:14:55.911989Z	npm ERR! Missing: esbuild-windows-32@0.14.47 from lock file
+2025-03-19T20:14:55.912117Z	npm ERR! Missing: esbuild-windows-64@0.14.47 from lock file
+2025-03-19T20:14:55.912361Z	npm ERR! Missing: esbuild-windows-arm64@0.14.47 from lock file
+2025-03-19T20:14:55.912672Z	npm ERR! Missing: json-schema-traverse@1.0.0 from lock file
+2025-03-19T20:14:55.912808Z	npm ERR! Missing: require-from-string@2.0.2 from lock file
+2025-03-19T20:14:55.912938Z	npm ERR! Missing: isarray@0.0.1 from lock file
+2025-03-19T20:14:55.913316Z	npm ERR! Missing: depd@1.1.2 from lock file
+2025-03-19T20:14:55.913409Z	npm ERR! Missing: setprototypeof@1.1.1 from lock file
+2025-03-19T20:14:55.913479Z	npm ERR! Missing: toidentifier@1.0.0 from lock file
+2025-03-19T20:14:55.913547Z	npm ERR! Missing: readdirp@4.1.2 from lock file
+2025-03-19T20:14:55.913604Z	npm ERR! Missing: @esbuild/aix-ppc64@0.24.2 from lock file
+2025-03-19T20:14:55.91366Z	npm ERR! Missing: @esbuild/android-arm@0.24.2 from lock file
+2025-03-19T20:14:55.913721Z	npm ERR! Missing: @esbuild/android-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.913807Z	npm ERR! Missing: @esbuild/android-x64@0.24.2 from lock file
+2025-03-19T20:14:55.913889Z	npm ERR! Missing: @esbuild/darwin-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.913951Z	npm ERR! Missing: @esbuild/darwin-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914012Z	npm ERR! Missing: @esbuild/freebsd-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.914077Z	npm ERR! Missing: @esbuild/freebsd-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914132Z	npm ERR! Missing: @esbuild/linux-arm@0.24.2 from lock file
+2025-03-19T20:14:55.914186Z	npm ERR! Missing: @esbuild/linux-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.91424Z	npm ERR! Missing: @esbuild/linux-ia32@0.24.2 from lock file
+2025-03-19T20:14:55.914296Z	npm ERR! Missing: @esbuild/linux-loong64@0.24.2 from lock file
+2025-03-19T20:14:55.91435Z	npm ERR! Missing: @esbuild/linux-mips64el@0.24.2 from lock file
+2025-03-19T20:14:55.914412Z	npm ERR! Missing: @esbuild/linux-ppc64@0.24.2 from lock file
+2025-03-19T20:14:55.914477Z	npm ERR! Missing: @esbuild/linux-riscv64@0.24.2 from lock file
+2025-03-19T20:14:55.914538Z	npm ERR! Missing: @esbuild/linux-s390x@0.24.2 from lock file
+2025-03-19T20:14:55.914599Z	npm ERR! Missing: @esbuild/linux-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914659Z	npm ERR! Missing: @esbuild/netbsd-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.91472Z	npm ERR! Missing: @esbuild/netbsd-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914807Z	npm ERR! Missing: @esbuild/openbsd-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.914869Z	npm ERR! Missing: @esbuild/openbsd-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914925Z	npm ERR! Missing: @esbuild/sunos-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914979Z	npm ERR! Missing: @esbuild/win32-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.915035Z	npm ERR! Missing: @esbuild/win32-ia32@0.24.2 from lock file
+2025-03-19T20:14:55.915094Z	npm ERR! Missing: @esbuild/win32-x64@0.24.2 from lock file
+2025-03-19T20:14:55.915155Z	npm ERR! Missing: acorn@8.14.0 from lock file
+2025-03-19T20:14:55.915211Z	npm ERR! Missing: @cloudflare/workerd-darwin-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915269Z	npm ERR! Missing: @cloudflare/workerd-darwin-arm64@1.20250317.0 from lock file
+2025-03-19T20:14:55.91534Z	npm ERR! Missing: @cloudflare/workerd-linux-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.9154Z	npm ERR! Missing: @cloudflare/workerd-linux-arm64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915465Z	npm ERR! Missing: @cloudflare/workerd-windows-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915525Z	npm ERR! 
+2025-03-19T20:14:55.916381Z	npm ERR! Clean install a project
+2025-03-19T20:14:55.916608Z	npm ERR! 
+2025-03-19T20:14:55.916823Z	npm ERR! Usage:
+2025-03-19T20:14:55.917038Z	npm ERR! npm ci
+2025-03-19T20:14:55.917579Z	npm ERR! 
+2025-03-19T20:14:55.917764Z	npm ERR! Options:
+2025-03-19T20:14:55.917882Z	npm ERR! [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2025-03-19T20:14:55.919129Z	npm ERR! [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2025-03-19T20:14:55.91977Z	npm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]
+2025-03-19T20:14:55.920488Z	npm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]
+2025-03-19T20:14:55.921239Z	npm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2025-03-19T20:14:55.921656Z	npm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2025-03-19T20:14:55.921963Z	npm ERR! 
+2025-03-19T20:14:55.922187Z	npm ERR! aliases: clean-install, ic, install-clean, isntall-clean
+2025-03-19T20:14:55.922611Z	npm ERR! 
+2025-03-19T20:14:55.922943Z	npm ERR! Run "npm help ci" for more info
+2025-03-19T20:14:55.923054Z	
+2025-03-19T20:14:55.923197Z	npm ERR! A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2025-03-19T20_14_50_844Z-debug-0.log
+2025-03-19T20:14:55.923619Z	Error: Exit with error code: 1
+2025-03-19T20:14:55.923904Z	    at ChildProcess.<anonymous> (/snapshot/dist/run-build.js)
+2025-03-19T20:14:55.9242Z	    at Object.onceWrapper (node:events:652:26)
+2025-03-19T20:14:55.924314Z	    at ChildProcess.emit (node:events:537:28)
+2025-03-19T20:14:55.924447Z	    at ChildProcess._handle.onexit (node:internal/child_process:291:12)
+2025-03-19T20:14:55.926164Z	Failed: build command exited with code: 1
+2025-03-19T20:14:57.230029Z	Failed: error occurred while running build command
+2025-03-19T20:14:55.914591575Z	npm ERR! Missing: @esbuild/linux-s390x@0.24.2 from lock file
+2025-03-19T20:14:55.914646185Z	npm ERR! Missing: @esbuild/linux-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914739762Z	npm ERR! Missing: @esbuild/netbsd-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.914800199Z	npm ERR! Missing: @esbuild/netbsd-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914870765Z	npm ERR! Missing: @esbuild/openbsd-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.914922235Z	npm ERR! Missing: @esbuild/openbsd-x64@0.24.2 from lock file
+2025-03-19T20:14:55.914975948Z	npm ERR! Missing: @esbuild/sunos-x64@0.24.2 from lock file
+2025-03-19T20:14:55.915030056Z	npm ERR! Missing: @esbuild/win32-arm64@0.24.2 from lock file
+2025-03-19T20:14:55.9151217Z	npm ERR! Missing: @esbuild/win32-ia32@0.24.2 from lock file
+2025-03-19T20:14:55.915174557Z	npm ERR! Missing: @esbuild/win32-x64@0.24.2 from lock file
+2025-03-19T20:14:55.915195928Z	npm ERR! Missing: acorn@8.14.0 from lock file
+2025-03-19T20:14:55.91528895Z	npm ERR! Missing: @cloudflare/workerd-darwin-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915298767Z	npm ERR! Missing: @cloudflare/workerd-darwin-arm64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915405021Z	npm ERR! Missing: @cloudflare/workerd-linux-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915486173Z	npm ERR! Missing: @cloudflare/workerd-linux-arm64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915516642Z	npm ERR! Missing: @cloudflare/workerd-windows-64@1.20250317.0 from lock file
+2025-03-19T20:14:55.915590495Z	npm ERR! 
+2025-03-19T20:14:55.916505832Z	npm ERR! Clean install a project
+2025-03-19T20:14:55.916716325Z	npm ERR! 
+2025-03-19T20:14:55.916938912Z	npm ERR! Usage:
+2025-03-19T20:14:55.917155725Z	npm ERR! npm ci
+2025-03-19T20:14:55.917678673Z	npm ERR! 
+2025-03-19T20:14:55.917850116Z	npm ERR! Options:
+2025-03-19T20:14:55.918036569Z	npm ERR! [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2025-03-19T20:14:55.919241836Z	npm ERR! [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2025-03-19T20:14:55.919881847Z	npm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]
+2025-03-19T20:14:55.920592646Z	npm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]
+2025-03-19T20:14:55.921351234Z	npm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2025-03-19T20:14:55.921781862Z	npm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2025-03-19T20:14:55.922059999Z	npm ERR! 
+2025-03-19T20:14:55.92228721Z	npm ERR! aliases: clean-install, ic, install-clean, isntall-clean
+2025-03-19T20:14:55.922774352Z	npm ERR! 
+2025-03-19T20:14:55.923118658Z	npm ERR! Run "npm help ci" for more info
+2025-03-19T20:14:55.923144337Z	
+2025-03-19T20:14:55.923305498Z	npm ERR! A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2025-03-19T20_14_50_844Z-debug-0.log
+2025-03-19T20:14:55.923780169Z	Error: Exit with error code: 1
+2025-03-19T20:14:55.923994662Z	    at ChildProcess.<anonymous> (/snapshot/dist/run-build.js)
+2025-03-19T20:14:55.924376487Z	    at Object.onceWrapper (node:events:652:26)
+2025-03-19T20:14:55.924397267Z	    at ChildProcess.emit (node:events:537:28)
+2025-03-19T20:14:55.924553308Z	    at ChildProcess._handle.onexit (node:internal/child_process:291:12)
+2025-03-19T20:14:55.926288274Z	Failed: build command exited with code: 1
