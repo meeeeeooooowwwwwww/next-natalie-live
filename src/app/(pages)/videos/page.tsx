@@ -1,3 +1,6 @@
+// Adding a comment to trigger redeployment
+// This comment does not affect functionality
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
