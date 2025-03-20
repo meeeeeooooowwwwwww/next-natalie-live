@@ -13,13 +13,20 @@ export interface VideosFeed {
   [index: number]: WarroomVideo;
 }
 
-let cachedVideos: WarroomVideo[] | null = null;
+let cachedVideos: WarroomVideo[] = [];
 
-export async function loadVideos() {
-  if (!cachedVideos) {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'natalie-videos.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    cachedVideos = JSON.parse(data);
+export async function loadVideos(): Promise<WarroomVideo[]> {
+  if (cachedVideos.length === 0) {
+    try {
+      const response = await fetch('/api/videos/natalie');
+      if (!response.ok) {
+        throw new Error('Failed to fetch videos');
+      }
+      cachedVideos = await response.json();
+    } catch (error) {
+      console.error('Error loading videos:', error);
+      return [];
+    }
   }
   return cachedVideos;
 }
@@ -46,8 +53,8 @@ export async function getLatestVideos(count: number = 10): Promise<WarroomVideo[
   return videos.slice(0, count);
 }
 
-export function getVideoSlug(url: string): string {
-  if (!url) return '';
+export function getVideoSlug(url: string): string | null {
+  if (!url) return null;
   
   // Extract the video ID from the Rumble URL
   // Examples:
@@ -72,10 +79,10 @@ export function getVideoSlug(url: string): string {
     }
     
     console.log(`No ID found in URL: ${url}`);
-    return '';
+    return null;
   } catch (error) {
     console.error('Error extracting video ID:', error);
-    return '';
+    return null;
   }
 }
 

@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isProduction = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['1a-1791.com'],
   },
-  experimental: {
+  experimental: isProduction ? {} : {
+    // Only apply this in local development
     buildTracesIgnore: ['node_modules/**', 'public/data/**'],
   },
   async headers() {
